@@ -4,8 +4,10 @@ const port = 3000;
 const app = express();
 const db = require('./db/db')
 const router = require('./route/routes')
+const ecomRoute = require('./route/ecomRoute')
 const userSchema= require('./models/user')
 db();
+
 
 dotenv.config({path:"./.env"})
 
@@ -13,6 +15,7 @@ app.use(express.json());
 
 //routes
 app.use('/route',router)
+app.use('/ecom',ecomRoute)
 
 
 app.listen(port,(req,res)=>{

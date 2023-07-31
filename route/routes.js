@@ -18,7 +18,8 @@ router.put("/update/:id",protect, userController.update)
 
 router.delete('/delete/:id',protect,userController.delete)
  
-//router.delete('/delete/:id',)
+// Product Routes
+
 router.get("/protected", protect, (req, res) => {
   return res.status(200).json({ message: "this is a protected route" });
 });
