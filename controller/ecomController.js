@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const { protect } = require("../route/auth");
 const bcrypt = require("bcryptjs");
 const Product = require("../models/product");
+const Order = require("../models/order");
+const { default: Stripe } = require("stripe");
 
 module.exports.addProduct = async (req, res) => {
   try {
@@ -98,6 +100,33 @@ module.exports.deleteProduct = async (req, res) => {
       msg: "Product Deleted Successfully",
       data: deletedProduct,
     });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+module.exports.placeOrder = async (req, res) => {
+  try {
+    const placeOrder = new Order({
+      userid: req.body.userid,
+      product: [
+        {
+          productId: req.body.productId,
+          quntity: req.body.qunatity,
+        },
+      ],
+      amount:req.body.amount,
+      address:req.body.address,
+      status:"Success"
+    });
+
+    await placeOrder.save();
+    return res.status(202).json({
+      code: "202",
+      msg: "Order Placed Successfully",
+      data: placeOrder,
+    });
+
   } catch (error) {
     return res.status(500).json(error);
   }

@@ -13,4 +13,6 @@ router.put('/updateProduct/:id',protect,ecomController.updateProduct)
 
 router.delete('/deleteProduct/:id',protect,ecomController.deleteProduct)
 
+router.post('/placeOrder',protect,ecomController.placeOrder)
+
 module.exports = router;
